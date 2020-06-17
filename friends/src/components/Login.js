@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axiosWithAuth from '../utils/axiosWithAuth';
 
@@ -6,11 +6,11 @@ function Login(props) {
 	//State
 
 	let [formInput, setFormInput] = useState({
-		username: "",
-		password: "",
-    });
-    
-    let history = useHistory();
+		username: '',
+		password: '',
+	});
+
+	let history = useHistory();
 
 	//Functions
 
@@ -26,16 +26,16 @@ function Login(props) {
 
 		axiosWithAuth()
 			.post('/api/login', formInput)
-			.then(response => {
+			.then((response) => {
+				console.log(response.data);
 
-                console.log(response.data)
+				window.localStorage.setItem('token', response.data.payload);
 
-                window.localStorage.setItem('token', response.data.payload);
-
-                history.push('/dashboard');
-
-            })
-			.catch(error => {console.log(error)});
+				history.push('/dashboard');
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 
 	return (
